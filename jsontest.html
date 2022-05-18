@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+
+<body>
+    <script>
+        var movielist;
+        var count= 1;
+        var url="http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=ff88e1fbf4a82cc59503dac63999daea&curPage=";
+        /*
+        http://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
+
+        관리 key : ff88e1fbf4a82cc59503dac63999daea
+        */
+        function start() {
+            fetch(url+count).then(function (response) {
+                if (response.status != 200) {
+                    alert("서버 통신 실패");
+                } else {
+                    return response.json();
+                }
+            })
+            .then(function(jsonData) {
+                
+                return jsonData.movieListResult.movieList;
+            })
+            .then(function(movieList){
+                removeList()
+                createList(movieList);
+            })
+        }
+        function createList(movieList) {
+            for(var i=0;i<movieList.length;i++) {
+                $("#movies").append("<li class=itemlist>"+movieList[i].movieNm+"</li>");
+            }
+            
+
+        }
+
+        function removeList(){
+            $(".itemlist").remove()
+        }
+        
+        $(document).ready(function() {
+            
+            $("#button").click(function() {
+                count++;
+                start(url);
+                console.log(count);
+            })
+        })
+       /*
+        (function() {
+            start();
+        })();
+
+        */
+
+
+    </script>
+    <button id="button">click</button>
+    <div id="movieBox">
+        <ul id="movies">
+            
+        </ul>
+    </div>
+</body>
+</html>
