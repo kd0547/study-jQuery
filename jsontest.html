@@ -14,11 +14,9 @@
     <script>
         var movielist;
         var count= 1;
-        var url="http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=ff88e1fbf4a82cc59503dac63999daea&curPage=";
+        var url="http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=(  private key  )&curPage=";
         /*
-        http://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
-
-        관리 key : ff88e1fbf4a82cc59503dac63999daea
+        
         */
         function start() {
             fetch(url+count).then(function (response) {
